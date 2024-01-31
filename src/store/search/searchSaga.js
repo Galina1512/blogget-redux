@@ -1,4 +1,4 @@
-import {call, put, select, takeEvery} from 'redux-saga/effects';
+import {put, select, takeEvery} from 'redux-saga/effects';
 import {URL_API} from '../../API/const';
 import axios from 'axios';
 import {SEARCH_REQUEST, searchRequestSuccess} from './searchAction';
@@ -17,14 +17,14 @@ function* fetchSearch(search) {
   }
 }
 
-function* workerSearch(action) {
-  const token = yield select(state => state.token.token);
-  const {data} = yield call(fetchSearch, action.search, token);
-  console.log(data.children);
-  console.log(data.children[1].data);
-  yield put(searchRequestSuccess(data));
-}
+// function* workerSearch(action) {
+//   const token = yield select(state => state.token.token);
+//   const {data} = yield call(fetchSearch, action.search, token);
+//   console.log(data.children);
+//   console.log(data.children[1].data);
+//   yield put(searchRequestSuccess(data));
+// }
 
 export function* watchSearch() {
-  yield takeEvery(SEARCH_REQUEST, workerSearch);
+  yield takeEvery(SEARCH_REQUEST, fetchSearch);
 }
