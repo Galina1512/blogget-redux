@@ -18,9 +18,12 @@ export const List = () => {
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) {
-        dispatch(postRequestAsync());
+        if (!postsData.loading) {
+          dispatch(postRequestAsync(page));
+        }
       }
-    }, {
+    },
+    {
       rootMargin: '100px',
     });
     observer.observe(endList.current);
