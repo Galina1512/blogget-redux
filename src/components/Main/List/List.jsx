@@ -12,15 +12,15 @@ export const List = () => {
   const {page} = useParams();
 
   useEffect(() => {
-    dispatch(postRequestAsync(page));
+    if (!postsData.loading) {
+      dispatch(postRequestAsync(page));
+    }
   }, [page]);
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) {
-        if (!postsData.loading) {
-          dispatch(postRequestAsync(page));
-        }
+        dispatch(postRequestAsync(page));
       }
     },
     {
